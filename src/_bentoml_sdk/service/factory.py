@@ -454,7 +454,10 @@ class Service(t.Generic[T_co]):
             k: main_config[k] for k in main_config if k not in api_server_keys
         }
         import copy
-        existing = copy.deepcopy(t.cast(t.Dict[str, t.Any], BentoMLContainer.config.get()))
+
+        existing = copy.deepcopy(
+            t.cast(t.Dict[str, t.Any], BentoMLContainer.config.get())
+        )
         deep_merge(existing, {"api_server": api_server_config, **rest_config})
         BentoMLContainer.config.set(existing)  # type: ignore
 
